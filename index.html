@@ -1,0 +1,16 @@
+import requests
+
+def jpy_to_eur(amount_jpy):
+    url = 'https://api.exchangerate.host/convert'
+    params = {'from': 'JPY', 'to': 'EUR', 'amount': amount_jpy}
+    response = requests.get(url, params=params)
+    data = response.json()
+    if data['info']['rate']:
+        amount_eur = data['result']
+        print(f"{amount_jpy}¥ is approximately {amount_eur:.4f}€ (rate: {data['info']['rate']:.6f})")
+    else:
+        print("Failed to retrieve exchange rate.")
+
+if __name__ == "__main__":
+    amount = float(input("Enter amount in JPY (¥): "))
+    jpy_to_eur(amount)
